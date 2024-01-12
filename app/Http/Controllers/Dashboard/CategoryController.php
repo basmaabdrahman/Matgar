@@ -89,9 +89,7 @@ class CategoryController extends Controller
         return redirect()->route('dashboard.categories.index')->with('edit','Category Updated');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(string $id)
     {
         $category=Category::findorfail($id);
