@@ -5,21 +5,13 @@
 <div class='mb-5'>
 <a href="{{route('dashboard.categories.create')}}" class="btn btn-sm btn-outline-primary">Create Category</a>
 </div>
-@if(session()->has('success'))
-<div class="alert alert-success">
-{{session('success')}}
-</div>
-@endif
-@if(Session()->has('edit'))
-<div class="alert alert-success">
-{{session('edit')}}
-</div>
-@endif
-@if(Session()->has('delete'))
-<div class="alert alert-danger">
-{{session('delete')}}
-</div>
-@endif
+<x-alert type="success"/>
+<x-alert type="info"/>
+<x-alert type="danger"/>
+
+
+
+
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>

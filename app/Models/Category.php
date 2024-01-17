@@ -22,7 +22,7 @@ class Category extends Model
             'parent_id'=>'nullable|int|exists:categories,id',
 
             'image'=>'file'
-            ,'status'=>'in:active,archived'
+            ,'status'=>'in:active,archived',
         ];
     }
 

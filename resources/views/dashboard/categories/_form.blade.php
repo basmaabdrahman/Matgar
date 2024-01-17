@@ -9,20 +9,13 @@
     </div>
 @endif
 <div class="form-group">
-    <label for="">Category Name</label>
-    <input type="text" name="name" value="{{old('name',$category->name)}}"
-     @class([
-        'form-control ','is-invalid'=>$errors->has('name')
-]) placeholder="Input Default">
-    @error('name')
-        <div class="invalid-feedback">
-            {{$message}}
-        </div>
-    @enderror
+    <x-form.label >Category Name</x-form.label>
+
+    <x-form.input name="name" type="text" value="{{$category->name}}"/>
 </div>
 
 <div class="form-group">
-    <label for="">Category Parent</label>
+    <x-form.label >Category Parent</x-form.label>
     <select name="parent_id" class="form-control form-select">
         <option value="">Primary Category</option>
         @foreach($parents as $parent)
@@ -30,29 +23,22 @@
         @endforeach
     </select>
     <div class="form-group">
-        <label for="">Category Description</label>
-        <textarea type="text" name="description" class="form-control input-default" placeholder="Input Default">{{old('description',$category->descrption)}}</textarea>
+        <x-form.label >Category Description</x-form.label>
+        <x-form.textarea name="description" value="{{$category->description}}"/>
     </div>
     <div class="form-group">
-        <label for="">Category Image</label>
-        <input type="file" name="image" class="form-control" >
+        <x-form.input type="file" name="image" class="form-control" label="Category Image"/>
 
         @if($category->image)
           <div>
-        <img src="{{asset('storage/'.$category->image)}}" height="50">
+         <img src="{{asset('storage/'.$category->image)}}" height="50">
           </div>
         @endif
     </div>
     <div class="form-group">
-        <label for="">Category Status</label>
+        <x-form.label >Category Status</x-form.label>
         <div>
-            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="status" value="active" autocomplete="off" @checked(old('status',$category->status) == 'active')>
-                <label class="btn btn-outline-primary">active</label>
-
-                <input type="radio" class="btn-check" name="status" value="archived" autocomplete="off" @checked(old('status',$category->status) =='archived')>
-                <label class="btn btn-outline-primary" >archived</label>
-            </div>
+            <x-form.radio name="status" checked='{{$category->status}}' :options="['active'=>'Active','archived'=>'Archived']"/>
         </div>
     </div>
 </div>

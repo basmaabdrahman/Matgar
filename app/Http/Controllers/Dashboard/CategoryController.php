@@ -75,7 +75,7 @@ class CategoryController extends Controller
         if ($old_image && $new_image ){
             Storage::disk('public')->delete($old_image);
         }
-        return redirect()->route('dashboard.categories.index')->with('edit','Category Updated');
+        return redirect()->route('dashboard.categories.index')->with('info','Category Updated');
     }
 
 
@@ -87,7 +87,7 @@ class CategoryController extends Controller
         if ($category->image){
             Storage::disk('public')->delete($category->image);
         }
-        return redirect()->route('dashboard.categories.index')->with('delete','Category Deleted');
+        return redirect()->route('dashboard.categories.index')->with('danger','Category Deleted');
     }
     protected function uploadimage(Request $request){
         if (!$request->hasFile('image')) {
