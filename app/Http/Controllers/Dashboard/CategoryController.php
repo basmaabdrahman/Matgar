@@ -14,8 +14,18 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories=Category::all(); //return collection object
-        return view('dashboard.categories.index',compact('categories'));
+        $request=request();
+        $query=Category::query();
+        /*
+        select * from categories ,*categories as parents,categories.id,=,parents.parent_id
+        categories.name,parents.name as parents_name
+        */
+        $categories=Category::leftJoin('categories as parents','parents.id','=','categories.parent_id')
+            ->select(['categories.*','parents.name as parent_name'])
+            ->filter($request->query())
+            ->orderBy('categories.name')
+            ->paginate();
+       return view('dashboard.categories.index',compact('categories'));
     }
 
     public function create()
@@ -84,9 +94,7 @@ class CategoryController extends Controller
         $category=Category::findorfail($id);
         $category->delete();
 //        Storage::delete()
-        if ($category->image){
-            Storage::disk('public')->delete($category->image);
-        }
+
         return redirect()->route('dashboard.categories.index')->with('danger','Category Deleted');
     }
     protected function uploadimage(Request $request){
@@ -98,5 +106,22 @@ class CategoryController extends Controller
                 ['disk'=>'public']);
             return $path;
         }
+        public function trash(){
+        $categories=Category::onlyTrashed()->paginate();
+        return view('dashboard.categories.trashed',compact('categories'));
+        }
+        public function restore(Request $request, $id){
 
+        $category=Category::onlyTrashed()->findOrFail($id);
+        $category->restore();
+        return redirect(route('dashboard.categories.index'))->with('info','Category has been restored');
+        }
+        public function forceDelete($id){
+        $category=Category::onlyTrashed()->findOrFail($id);
+        $category->forceDelete();
+            if ($category->image){
+                Storage::disk('public')->delete($category->image);
+            }
+        return redirect(route('dashboard.categories.index'))->with('danger','Category has been Deleted');
+        }
 }
