@@ -14,4 +14,16 @@ return [[
         'active'=>'dashboard.categories.*'
 
     ],
+    ['name'=>'Product',
+        'label'=>'mega-menu mega-menu-sm',
+        'route'=>'dashboard.products.index',
+        'icon'=>'icon-globe-alt menu-icon',
+        'active'=>'dashboard.products.*'
+    ],
+    ['name'=>'orders',
+        'label'=>'mega-menu mega-menu-sm',
+        'route'=>'dashboard.orders.index',
+        'icon'=>'icon-globe-alt menu-icon',
+        'active'=>'dashboard.orders.*'
+    ]
 ];

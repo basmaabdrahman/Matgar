@@ -167,7 +167,7 @@
                                     <a href=""> <i class="user-img c-pointer position-relative"><img src="/images/user/1.png" height="40" width="40" alt=""></i> <span>{{Auth::User()->name}}</span></a>
                                 </li>
                                 <li>
-                                    <a href="app-profile.html"><i class="icon-user"></i> <span>Profile</span></a>
+                                    <a href="{{route('profile.edit')}}"><i class="icon-user"></i> <span>Profile</span></a>
                                 </li>
                                 <li>
                                     <a href="javascript:void()">

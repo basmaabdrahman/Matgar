@@ -8,5 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Store extends Model
 {
     use HasFactory;
+    public function products(){
+        $this->hasMany('Product','store_id');
+    }
 
 }

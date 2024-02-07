@@ -1,10 +1,9 @@
 @extends('layouts.dashboard')
-@section('title','Categories')
+@section('title','products')
 @section('content')
 <h2>Categories</h2>
 <div class='mb-5'>
-<a href="{{route('dashboard.categories.create')}}" class="btn btn-sm btn-outline-primary">Create Category</a>
-<a href="{{route('dashboard.categories.trash')}}" class="btn btn-sm btn-outline-dark">Trash</a>
+<a href="{{route('dashboard.products.create')}}" class="btn btn-sm btn-outline-primary">Create product</a>
     </div>
 <x-alert type="success"/>
 <x-alert type="info"/>
@@ -33,27 +32,33 @@
                                                 <th>#</th>
                                                 <th>image</th>
                                                 <th>Name</th>
-                                                <th>Parent</th>
+                                                <th>Category</th>
+                                                <th>Store</th>
+                                                <th>Price</th>
+                                                <th>Compare Price</th>
+                                                <th>Rating</th>
+                                                <th>Featured</th>
                                                 <th>Status</th>
-                                                <th>Product_Number</th>
-                                                <th>Created_at</th>
                                                 <th colspan="2">Actions<th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @forelse($categories as $category)
+                                        @forelse($products as $product)
                                             <tr>
-                                                <td>{{$category->id}}</td>
-                                                <td><img src="{{asset('storage/'.$category->image)}}" height='50'/></td>
-                                               <td> <a href="{{route('dashboard.categories.show',$category->id)}}"> {{$category->name}}</a>
+                                                <td>{{$product->id}}</td>
+                                                <td><img src="{{asset('storage/'.$product->image)}}" height='50'/></td>
+                                                <td>{{$product->name}}
                                                 </td>
-                                                <td>{{$category->parent->name}}</td>
-                                                <td>{{$category->status}}</td>
-                                                <td>{{$category->product_number}}
-                                                <td>{{$category->created_at}}</td>
-                                                 <td><a href="{{route('dashboard.categories.edit',$category->id)}}" class="btn btn-sm btn-outline-success">EDIT</a></td>
+                                                <td>{{$product->category->name}}</td>
+                                                <td>{{$product->store->name}}</td>
+                                                <td>{{$product->price}}</td>
+                                                <td>{{$product->compare_price}}</td>
+                                                <td>{{$product->rating}}</td>
+                                                <td>{{$product->featured}}</td>
+                                                <td>{{$product->status}}</td>
+                                                 <td><a href="{{route('dashboard.categories.edit',$product->id)}}" class="btn btn-sm btn-outline-success">EDIT</a></td>
                                                  <td>
-                                                 <form action="{{route('dashboard.categories.destroy',$category->id)}}" method="post">
+                                                 <form action="{{route('dashboard.categories.destroy',$product->id)}}" method="post">
                                                  @csrf
                                                  <!--form Method Spoofing-->
                                                  @method('delete')
@@ -64,7 +69,7 @@
                                             @empty
 
                                             <tr>
-                                            <td colspan='7'>Categories not defined</td>
+                                            <td colspan='11'>Products not defined</td>
                                             </tr>
                                     @endforelse
 
@@ -73,6 +78,6 @@
                                     </table>
 
                                 </div>
-                                    {{$categories->withQueryString()->links()}}
+                                    {{$products->withQueryString()->links()}}
 
 @endsection

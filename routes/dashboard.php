@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\OrderController;
+use App\Http\Controllers\Dashboard\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware'=>['auth','verified'],
@@ -17,8 +19,11 @@ Route::group(['middleware'=>['auth','verified'],
     Route::put('categories/{category}/restore',[CategoryController::class,'restore'])->name('categories.restore');
     Route::delete('categories/{category}/force-delete',[CategoryController::class,'forceDelete'])->name('categories.forceDelete');
     Route::resource('/categories', CategoryController::class);
+    Route::resource('/products',ProductController::class);
+    Route::resource('/orders',OrderController::class);
 
-});
+
+    });
 
 
 

@@ -20,8 +20,13 @@ class CategoryController extends Controller
         select * from categories ,*categories as parents,categories.id,=,parents.parent_id
         categories.name,parents.name as parents_name
         */
-        $categories=Category::leftJoin('categories as parents','parents.id','=','categories.parent_id')
-            ->select(['categories.*','parents.name as parent_name'])
+        $categories=Category::with(['parent'])/*leftJoin('categories as parents','parents.id','=','categories.parent_id')
+            ->select(['categories.*','parents.name as parent_name'])*/
+            ->withCount([
+                'products as product_number'=>function($query){
+                return $query->where('status','active');
+                }
+        ])
             ->filter($request->query())
             ->orderBy('categories.name')
             ->paginate();
@@ -52,9 +57,9 @@ class CategoryController extends Controller
     }
 
 
-    public function show(string $id)
+    public function show(Category $category)
     {
-
+        return view('dashboard.categories.show',compact('category'));
     }
 
 

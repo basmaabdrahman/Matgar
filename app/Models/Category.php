@@ -14,6 +14,17 @@ class Category extends Model
     protected $fillable=[
         'name','description','parent_id','status','image','slug',
     ];
+    public function products(){
+      return  $this->hasMany(Product::class,'category_id','id');
+    }
+    public function parent(){
+        return $this->belongsTo(Category::class,'parent_id','id')
+            ->withDefault(['name'=>'-']);
+    }
+
+    public function child(){
+        return $this->hasMany(Category::class,'parent_id','id');
+    }
     public function scopeActive(Builder $builder){
         $builder->where('status','=','active');
     }
