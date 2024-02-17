@@ -19,6 +19,9 @@ Route::group(['middleware'=>['auth','verified'],
     Route::put('categories/{category}/restore',[CategoryController::class,'restore'])->name('categories.restore');
     Route::delete('categories/{category}/force-delete',[CategoryController::class,'forceDelete'])->name('categories.forceDelete');
     Route::resource('/categories', CategoryController::class);
+    Route::get('products/trash',[ProductController::class,'trash'])->name('products.trash');
+    Route::put('products/{product}/restore',[ProductController::class,'restore'])->name('products.restore');
+    Route::delete('products/{product}/forceDelete',[ProductController::class,'forceDelete'])->name('products.forceDelete');
     Route::resource('/products',ProductController::class);
     Route::resource('/orders',OrderController::class);
 

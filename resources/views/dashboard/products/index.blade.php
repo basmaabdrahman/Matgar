@@ -4,7 +4,10 @@
 <h2>Categories</h2>
 <div class='mb-5'>
 <a href="{{route('dashboard.products.create')}}" class="btn btn-sm btn-outline-primary">Create product</a>
+    <a href="{{route('dashboard.products.trash')}}" class="btn btn-sm btn-outline-dark">Trash </a>
+
     </div>
+
 <x-alert type="success"/>
 <x-alert type="info"/>
 <x-alert type="danger"/>
@@ -56,9 +59,9 @@
                                                 <td>{{$product->rating}}</td>
                                                 <td>{{$product->featured}}</td>
                                                 <td>{{$product->status}}</td>
-                                                 <td><a href="{{route('dashboard.categories.edit',$product->id)}}" class="btn btn-sm btn-outline-success">EDIT</a></td>
+                                                 <td><a href="{{route('dashboard.products.edit',$product->id)}}" class="btn btn-sm btn-outline-success">EDIT</a></td>
                                                  <td>
-                                                 <form action="{{route('dashboard.categories.destroy',$product->id)}}" method="post">
+                                                 <form action="{{route('dashboard.products.destroy',$product->id)}}" method="post">
                                                  @csrf
                                                  <!--form Method Spoofing-->
                                                  @method('delete')

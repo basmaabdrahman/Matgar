@@ -18,19 +18,19 @@
     <x-form.label >Product's Category </x-form.label>
     <select name="category_id" class="form-control form-select">
         <option value="">Product Category</option>
-        @foreach($categories as $category)
+        @foreach(\App\Models\Category::all() as $category)
             <option value="{{$category->id}}" @selected(old('category_id',$product->category_id) == $product->id)>{{$category->name}}</option>
         @endforeach
     </select>
     <x-form.label >Product's Store </x-form.label>
     <select name="store_id" class="form-control form-select">
         <option value="">Product Store</option>
-        @foreach($stores as $store)
+        @foreach(\App\Models\Store::all() as $store)
             <option value="{{$store->id}}" @selected(old('store_id',$product->store_id) == $store->id)>{{$store->name}}</option>
         @endforeach
     </select>
     <div class="form-group">
-        <x-form.label >Category Description</x-form.label>
+        <x-form.label >Product Description</x-form.label>
         <x-form.textarea name="description" value="{{$product->description}}"/>
     </div>
     <div class="form-group">
@@ -45,18 +45,23 @@
     <div class="form-group">
         <x-form.label >Category Status</x-form.label>
         <div>
-            <x-form.radio name="status" checked='{{$product->status}}' :options="['active'=>'Active','archived'=>'Archived']"/>
+            <x-form.radio name="status" checked='{{$product->status}}' :options="['active'=>'Active','archived'=>'Archived','draft'=>'Draft']"/>
         </div>
     </div>
     <div class="form-group">
         <x-form.label >product price</x-form.label>
 
-        <x-form.input name="price" type="number" value="{{$product->name}}"/>
+        <x-form.input name="price" type="number" value="{{$product->price}}"/>
     </div>
     <div class="form-group">
         <x-form.label >product compared price</x-form.label>
 
-        <x-form.input name="compare_price" type="number" value="{{$product->name}}"/>
+        <x-form.input name="compare_price" type="number" value="{{$product->compared_price}}"/>
+    </div>
+    <div class="form-group">
+        <x-form.label >TAG</x-form.label>
+
+        <x-form.input name="tag" type="string" :value="$tags ?? 'None'"/>
     </div>
 
 </div>
